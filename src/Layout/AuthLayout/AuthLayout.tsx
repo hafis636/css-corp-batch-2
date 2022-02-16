@@ -1,15 +1,18 @@
-import { AuthContext } from 'context/authContext';
-import React, { useContext } from 'react';
+import { useRootStore } from 'context/rootStoreContext';
+import React from 'react';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
-import { User } from 'types/UserType';
 
-type Props = {
-  user: User;
-};
-
-const AuthLayout = ({ user }: Props) => {
+const AuthLayout = () => {
   let location = useLocation();
-  if (Object.keys(user).length > 0) {
+  const { authStore } = useRootStore();
+
+  // useEffect(() => {
+  //   autorun(() => {
+
+  //   })
+  // }, []);
+
+  if (authStore.isAuthenticated()) {
     return <Navigate to="/home" state={{ from: location }} replace />;
   }
 

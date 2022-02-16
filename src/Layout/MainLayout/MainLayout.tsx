@@ -4,6 +4,8 @@ import { Disclosure, Menu, Transition } from '@headlessui/react';
 import { MenuIcon, XIcon, ShoppingBagIcon } from '@heroicons/react/outline';
 import { Navigate, Outlet, useLocation } from 'react-router-dom';
 import Snackbar from '@components/Snackbar';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from 'context/rootStoreContext';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -20,18 +22,17 @@ interface Props {
   onLogout: () => void;
 }
 
-const MainLayout = ({
-  quantity,
-  error,
-  clearError,
-  isUserExist,
-  onLogout,
-}: Props) => {
+const MainLayout = observer(({ quantity, error, clearError }: Props) => {
   let location = useLocation();
-  if (!isUserExist) {
+  const { authStore } = useRootStore();
+
+  console.log(authStore.getUser());
+
+  console.log(authStore.isAuthenticated());
+
+  if (!authStore.isAuthenticated()) {
     return <Navigate to="/" state={{ from: location }} replace />;
   }
-  // console.log('Main layout render');
 
   return (
     <>
@@ -149,7 +150,7 @@ const MainLayout = ({
                           {({ active }) => (
                             <a
                               role="button"
-                              onClick={onLogout}
+                              onClick={authStore.onLogout}
                               className={cn(
                                 'block px-4 py-2 text-sm text-gray-700',
                                 {
@@ -219,6 +220,6 @@ const MainLayout = ({
       </>
     </>
   );
-};
+});
 
 export default memo(MainLayout);
