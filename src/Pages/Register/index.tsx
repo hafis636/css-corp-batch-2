@@ -1,13 +1,14 @@
-import React from 'react';
+import { FormikHelpers } from 'formik';
+import { connect } from 'react-redux';
+import { AppDispatch } from 'types/commonTypes';
+import Register from './Register';
+import { RegisterInitValuesType } from './registerUtils';
 
-interface Props {}
+const mapDispatchToProps = (dispatch: AppDispatch) => ({
+  onRegister: (
+    values: RegisterInitValuesType,
+    actions: FormikHelpers<RegisterInitValuesType>,
+  ) => dispatch({ type: 'REGISTER_REQUEST', values, actions }),
+});
 
-const Register = (props: Props) => {
-  return (
-    <div>
-      <h1>Hello from register page</h1>
-    </div>
-  );
-};
-
-export default Register;
+export default connect(null, mapDispatchToProps)(Register);

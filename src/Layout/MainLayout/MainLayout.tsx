@@ -1,8 +1,11 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, memo, useContext } from 'react';
 import cn from 'classnames';
 import { Disclosure, Menu, Transition } from '@headlessui/react';
-import { BellIcon, MenuIcon, XIcon } from '@heroicons/react/outline';
-import { Outlet } from 'react-router-dom';
+import { MenuIcon, XIcon, ShoppingBagIcon } from '@heroicons/react/outline';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import Snackbar from '@components/Snackbar';
+import { observer } from 'mobx-react-lite';
+import { useRootStore } from 'context/rootStoreContext';
 
 const navigation = [
   { name: 'Dashboard', href: '#', current: true },
@@ -11,9 +14,26 @@ const navigation = [
   { name: 'Calendar', href: '#', current: false },
 ];
 
-interface Props {}
+interface Props {
+  quantity: number;
+  error: any;
+  clearError: (key: string) => void;
+  isUserExist: boolean;
+  onLogout: () => void;
+}
 
-const MainLayout = (props: Props) => {
+const MainLayout = observer(({ quantity, error, clearError }: Props) => {
+  let location = useLocation();
+  const { authStore } = useRootStore();
+
+  console.log(authStore.getUser());
+
+  console.log(authStore.isAuthenticated());
+
+  if (!authStore.isAuthenticated()) {
+    return <Navigate to="/" state={{ from: location }} replace />;
+  }
+
   return (
     <>
       <Disclosure as="nav" className="bg-gray-800">
@@ -68,10 +88,10 @@ const MainLayout = (props: Props) => {
                 <div className="absolute inset-y-0 right-0 flex items-center pr-2 sm:static sm:inset-auto sm:ml-6 sm:pr-0">
                   <button
                     type="button"
-                    className="bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
+                    className="flex items-center bg-gray-800 p-1 rounded-full text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-800 focus:ring-white"
                   >
-                    <span className="sr-only">View notifications</span>
-                    <BellIcon className="h-6 w-6" aria-hidden="true" />
+                    <ShoppingBagIcon className="h-6 w-6" aria-hidden="true" />
+                    <span className="ml-2 text-sm font-medium">{quantity}</span>
                   </button>
 
                   {/* Profile dropdown */}
@@ -95,7 +115,7 @@ const MainLayout = (props: Props) => {
                       leaveFrom="transform opacity-100 scale-100"
                       leaveTo="transform opacity-0 scale-95"
                     >
-                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                      <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-10">
                         <Menu.Item>
                           {({ active }) => (
                             <a
@@ -129,7 +149,8 @@ const MainLayout = (props: Props) => {
                         <Menu.Item>
                           {({ active }) => (
                             <a
-                              href="#"
+                              role="button"
+                              onClick={authStore.onLogout}
                               className={cn(
                                 'block px-4 py-2 text-sm text-gray-700',
                                 {
@@ -172,8 +193,33 @@ const MainLayout = (props: Props) => {
         )}
       </Disclosure>
       <Outlet />
+
+      <>
+        {Object.keys(error)
+          .slice(0, 3)
+          .map((x, index) => {
+            console.log(x);
+            const title = x
+              .replace(/_\d+/g, '')
+              .split('_')
+              .map(
+                (txt) => `${txt[0].toUpperCase()}${txt.slice(1).toLowerCase()}`,
+              )
+              .join(' ');
+            return (
+              <Snackbar
+                key={x}
+                title={title}
+                text={error[x]}
+                btnText="Retry"
+                onCancel={() => clearError(x)}
+                index={index}
+              />
+            );
+          })}
+      </>
     </>
   );
-};
+});
 
-export default MainLayout;
+export default memo(MainLayout);

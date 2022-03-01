@@ -1,43 +1,23 @@
-import React from 'react';
-import { Formik, Field, Form } from 'formik';
-import LockIcon from '@assets/icons/lock.svg';
-import {
-  LoginFields,
-  LoginInitValues,
-  LoginInitValuesType,
-} from './loginUtils';
-import Checkbox from '@components/Checkbox';
-import Link from '@components/Link';
-import Button from '@components/Button';
-
-interface Props {}
-
-const Login = (props: Props) => {
-  const onSubmit = (values: LoginInitValuesType) => {
-    console.log(values);
-  };
-
-  return (
-    <Formik initialValues={LoginInitValues} onSubmit={onSubmit}>
-      {() => (
-        <Form className="mt-8 space-y-6">
-          <div className="rounded-md shadow-sm -space-y-px">
-            {LoginFields.map((x) => (
-              <Field key={x.name} {...x} />
-            ))}
-          </div>
-
-          <div className="flex items-center justify-between">
-            <Field name="remember_me" component={Checkbox}>
-              Remember Me
-            </Field>
-            <Link href="#">Forgot your password?</Link>
-          </div>
-          <Button type="submit">Sign In</Button>
-        </Form>
-      )}
-    </Formik>
-  );
-};
+import { observer } from 'mobx-react-lite';
+import Login from './Login';
 
 export default Login;
+// import { FormikHelpers } from 'formik';
+// import { connect } from 'react-redux';
+// import { loginRequestAction } from 'reducers/loadingReducer';
+// import { AppDispatch } from 'types/commonTypes';
+// import { LoginInitValuesType } from './loginUtils';
+// import { RootState } from 'types/commonTypes';
+
+// const mapStateToProps = (state: RootState) => ({
+//   user: state.user,
+// });
+
+// const mapDispatchToProps = (dispatch: AppDispatch) => ({
+//   onLogin: (
+//     values: LoginInitValuesType,
+//     actions: FormikHelpers<LoginInitValuesType>,
+//   ) => dispatch({ type: 'LOGIN_REQUEST', values, actions }),
+// });
+
+// export default connect(mapStateToProps, mapDispatchToProps)(Login);

@@ -18,14 +18,14 @@
       "esnext"
     ] /* Specify a set of bundled library declaration files that describe the target runtime environment. */,
     "jsx": "react" /* Specify what JSX code is generated. */,
-    // "experimentalDecorators": true,                   /* Enable experimental support for TC39 stage 2 draft decorators. */
+    "experimentalDecorators": true /* Enable experimental support for TC39 stage 2 draft decorators. */,
     // "emitDecoratorMetadata": true,                    /* Emit design-type metadata for decorated declarations in source files. */
     // "jsxFactory": "",                                 /* Specify the JSX factory function used when targeting React JSX emit, e.g. 'React.createElement' or 'h' */
     // "jsxFragmentFactory": "",                         /* Specify the JSX Fragment reference used for fragments when targeting React JSX emit e.g. 'React.Fragment' or 'Fragment'. */
     // "jsxImportSource": "",                            /* Specify module specifier used to import the JSX factory functions when using `jsx: react-jsx*`.` */
     // "reactNamespace": "",                             /* Specify the object invoked for `createElement`. This only applies when targeting `react` JSX emit. */
     // "noLib": true,                                    /* Disable including any library files, including the default lib.d.ts. */
-    // "useDefineForClassFields": true,                  /* Emit ECMAScript-standard-compliant class fields. */
+    "useDefineForClassFields": true /* Emit ECMAScript-standard-compliant class fields. */,
 
     /* Modules */
     "module": "ESNext" /* Specify what module code is generated. */,
@@ -37,7 +37,18 @@
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/Pages/*"],
       "@layout/*": ["src/layout/*"],
-      "@assets/*": ["src/assets/*"]
+      "@assets/*": ["src/assets/*"],
+      "utils/*": ["src/utils/*"],
+      "types/*": ["src/types/*"],
+      "context/*": ["src/context/*"],
+      "hooks/*": ["src/hooks/*"],
+      "reducers/*": ["src/reducers/*"],
+      "actions/*": ["src/actions/*"],
+      "middleware/*": ["src/middleware/*"],
+      "sagas/*": ["src/sagas/*"],
+      "constants/*": ["src/constants/*"],
+      "store/*": ["src/store/*"],
+      "services/*": ["src/services/*"]
     } /* Specify a set of entries that re-map imports to additional lookup locations. */,
     // "rootDirs": [],                                   /* Allow multiple folders to be treated as one when resolving modules. */
     // "typeRoots": [],                                  /* Specify multiple folders that act like `./node_modules/@types`. */
@@ -109,5 +120,5 @@
     "skipLibCheck": true /* Skip type checking all .d.ts files. */
   },
   "include": ["src"],
-  "files": ["./types/declarations.d.ts"]
+  "files": ["src/types/declarations.d.ts"]
 }

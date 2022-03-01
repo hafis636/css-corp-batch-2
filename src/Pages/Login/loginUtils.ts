@@ -1,10 +1,10 @@
 import Input from '@components/Input';
-import Select from '@components/Select';
 
 export type LoginInitValuesType = {
   email: string;
   password: string;
   remember_me: boolean;
+  serverError?: string;
 };
 
 export const LoginInitValues: LoginInitValuesType = {

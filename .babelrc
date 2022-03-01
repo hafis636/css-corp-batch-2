@@ -6,6 +6,7 @@
   ],
   "plugins": [
     "@babel/plugin-transform-runtime",
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
     [
       "module-resolver",
       {
@@ -14,9 +15,23 @@
           "@components": "./src/components",
           "@pages": "./src/Pages",
           "@layout": "./src/Layout",
-          "@assets": "./src/assets"
+          "@assets": "./src/assets",
+          "utils": "./src/utils",
+          "types": "./src/types",
+          "context": "./src/context",
+          "hooks": "./src/hooks",
+          "reducers": "./src/reducers",
+          "actions": "./src/actions",
+          "middleware": "./src/middleware",
+          "sagas": "./src/sagas",
+          "constants": "./src/constants",
+          "store": "./src/store",
+          "services": "./src/services"
         }
       }
     ]
-  ]
+  ],
+  "assumptions": {
+    "setPublicClassFields": false
+  }
 }
