@@ -1,22 +1,20 @@
 import { connect } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { LoadSingleProductRequestAction } from 'reducers/loadingReducer';
-import { CartType } from 'types/cartTypes';
+import { LoadCartRequestAction, LoadSingleProductRequestAction } from 'reducers/loadingReducer';
 import { AppDispatch, RootState } from 'types/commonTypes';
-import { ProductType } from 'types/productsTypes';
 import SingleProduct from './SingleProduct';
 
-const mapStateToProps = (store: RootState) => {
+const mapStateToProps = ({ products, cart }: RootState) => {
     return {
-        products: store.products,
+        products,
+        cartStatus: cart.findIndex((x) => { return x.productId === products?.id }),
 
     };
 };
 
 const mapDispatchToProps = (dispatch: AppDispatch) => {
     return {
-        loadSingleProduct: (productId: number) =>
-            dispatch(LoadSingleProductRequestAction(productId)),
+        loadSingleProduct: (productId: number) => dispatch(LoadSingleProductRequestAction(productId)),
+        loadCart: () => dispatch(LoadCartRequestAction()),
     }
 }
 

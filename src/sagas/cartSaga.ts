@@ -54,7 +54,7 @@ function* addCartItem({ processId }: AddCartItemRequestActionType) {
   try {
     const res: AxiosResponse<CartType> = yield call(
       axiosInstance.post,
-      '660/cart',
+      'cart',
       {
         productId: processId,
         quantity: 1,
