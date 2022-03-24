@@ -44,6 +44,7 @@ export const DeleteCartItemSuccessAction = (
   processId,
 });
 
+
 export default (
   state: CartType[] = cartInitialState,
   action: LoadCartSuccessActionType | CartItemSuccess,
@@ -51,10 +52,8 @@ export default (
   switch (action.type) {
     case LOAD_CART_SUCCESS:
       return action.data;
-
     case ADD_CART_ITEM_SUCCESS:
       return [...state, action.cartItem];
-
     case UPDATE_CART_ITEM_SUCCESS:
       return state.map((item) => {
         if (item.id === action.cartItem.id) {
@@ -65,7 +64,6 @@ export default (
 
     case DELETE_CART_ITEM_SUCCESS:
       return state.filter((item) => item.id !== action.cartItem.id);
-
     default:
       return state;
   }

@@ -1,6 +1,7 @@
 import { AxiosResponse } from 'axios';
 import {
   ADD_CART_ITEM_REQUEST,
+  APPLY_OFFER_REQUEST,
   DELETE_CART_ITEM_REQUEST,
   LOAD_CART_REQUEST,
   UPDATE_CART_ITEM_REQUEST,
@@ -23,6 +24,7 @@ import {
   LoadCartErrorAction,
   UpdateCartItemFailAction,
 } from 'reducers/errorReducer';
+import { ApplyOfferSuccessAction } from 'reducers/offerReducer';
 import {
   takeEvery,
   call,
@@ -32,6 +34,7 @@ import {
   takeLatest,
 } from 'redux-saga/effects';
 import { CartType } from 'types/cartTypes';
+import { OfferType } from 'types/productsTypes';
 import axiosInstance from 'utils/axios';
 
 function* loadCart() {
@@ -77,7 +80,7 @@ function* updateCartItem({
   try {
     const res: AxiosResponse<CartType> = yield call(
       axiosInstance.put,
-      `660/cart/${cartItem.id}`,
+      `cart/${cartItem.id}`,
       cartItem,
     );
     yield put(UpdateCartItemSuccessAction(res.data, processId));
@@ -90,12 +93,39 @@ function* updateCartItem({
   }
 }
 
+function* applyOffer({ offer }: any) {
+  try {
+    const offersList = [
+      {
+        "name": "Flat 10% Off",
+        "offercode": "FLAT10PERCENT",
+        offerFunc: (param: number) => {
+          return param - (param * 0.10);
+        }
+      },
+      {
+        "name": "Flat 10$ Off",
+        "offercode": "FLAT10DOLLAR",
+        offerFunc: (param: number) => {
+          return param - 10;
+        }
+      }
+    ];
+    const offerDiscount = offersList.find((x: any) => x?.offercode === offer);
+    yield put(ApplyOfferSuccessAction(offerDiscount));
+  } catch (error) {
+
+  }
+
+}
+
 function* deleteCartItem({
   cartItem,
   processId,
 }: ModifyCartItemRequestActionType) {
   try {
-    yield call(axiosInstance.delete, `660/cart/${cartItem.id}`);
+    console.log(cartItem);
+    yield call(axiosInstance.delete, `cart/${cartItem.id}`);
     yield put(DeleteCartItemSuccessAction(cartItem, processId));
   } catch (error) {
     let message = 'Something went wrong. Please try after sometime.';
@@ -118,6 +148,10 @@ function* updateCartItemRequest() {
   yield takeLatest(UPDATE_CART_ITEM_REQUEST, updateCartItem);
 }
 
+function* applyOfferRequest() {
+  yield takeLatest(APPLY_OFFER_REQUEST, applyOffer);
+}
+
 function* deleteCartItemRequest() {
   yield takeLatest(DELETE_CART_ITEM_REQUEST, deleteCartItem);
 }
@@ -128,5 +162,6 @@ export default function* rootCart() {
     fork(addCartItemRequest),
     fork(updateCartItemRequest),
     fork(deleteCartItemRequest),
+    fork(applyOfferRequest),
   ]);
 }

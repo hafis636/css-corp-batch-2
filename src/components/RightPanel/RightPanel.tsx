@@ -5,13 +5,17 @@ type Props = {
     subtotal: number;
     shippingCharge: number;
     total: number;
+    appliedOffer: {
+        offername: string | undefined;
+        offerAmount: number;
+    };
 }
 
-const RightPanel = ({ totalCount, subtotal, shippingCharge, total }: Props) => {
+const RightPanel = ({ totalCount, subtotal, shippingCharge, total, appliedOffer }: Props) => {
     return (
         <div className="relative z-10 rounded-lg shadow-xl text-slate-900 dark:text-slate-300 p-4">
             <div className="flex p-4 mt-4">
-                <h2 className="text-xl font-bold">ITEMS {totalCount}</h2>
+                <h2 className="text-xl font-bold">ITEMS ({totalCount})</h2>
             </div>
             <div
                 className="w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
@@ -33,16 +37,16 @@ const RightPanel = ({ totalCount, subtotal, shippingCharge, total }: Props) => {
                     }).format(shippingCharge)}
                 </span>
             </div>
-            <div
+            {appliedOffer.offername && <div
                 className="w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
-                Offer Applied
+                Offer Applied - {appliedOffer?.offername}
                 <span className="ml-2 float-right">
                     {new Intl.NumberFormat('en-US', {
                         style: 'currency',
                         currency: 'USD',
-                    }).format(total)}
+                    }).format(appliedOffer?.offerAmount)}
                 </span>
-            </div>
+            </div>}
             <div
                 className="w-full py-4 text-sm font-semibold border-b border-gray-300 lg:py-5 lg:px-3 text-heading last:border-b-0 last:text-base last:pb-0">
                 Total

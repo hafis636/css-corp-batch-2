@@ -30,9 +30,11 @@ import {
   UPDATE_CART_ITEM_FAIL,
   UPDATE_CART_ITEM_REQUEST,
   UPDATE_CART_ITEM_SUCCESS,
+  APPLY_OFFER_REQUEST,
+  APPLY_OFFER_SUCCESS
 } from 'types/commonTypes';
 
-import { ProductType } from 'types/productsTypes';
+import { OfferType, ProductType } from 'types/productsTypes';
 import { User } from 'types/UserType';
 
 export type LogoutRequestActionType = {
@@ -60,6 +62,10 @@ export type CartItemSuccess = {
   cartItem: CartType;
   processId: number;
 };
+export type ApplyOfferSuccessType = {
+  type: APPLY_OFFER_SUCCESS;
+  offerlist: OfferType | undefined;
+}
 
 export type LoadRequestActionType = {
   type: LOAD_PRODUCTS_REQUEST | LOAD_CART_REQUEST;
@@ -76,6 +82,11 @@ export type ModifyCartItemRequestActionType = {
   type: UPDATE_CART_ITEM_REQUEST | DELETE_CART_ITEM_REQUEST;
   cartItem: CartType;
   processId: number;
+};
+
+export type ApplyOfferRequestActionType = {
+  type: APPLY_OFFER_REQUEST;
+  offer: string;
 };
 
 export type LoginRequestActionType = {

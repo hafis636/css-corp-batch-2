@@ -9,7 +9,12 @@ export type RatingType = {
   rate: number;
   count: number;
 };
-
+export type OfferType = {
+  name: string;
+  offercode: string;
+  offerFunc: (param: number) => void;
+  invalid?: number;
+}
 export type ProductType = {
   id: number;
   title: string;
@@ -18,4 +23,5 @@ export type ProductType = {
   category: ProductCategoryEnum;
   image: string;
   rating: RatingType;
+  qty: number;
 };

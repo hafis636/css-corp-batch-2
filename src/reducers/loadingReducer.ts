@@ -2,6 +2,7 @@ import { CartType } from 'types/cartTypes';
 
 import {
   AddCartItemRequestActionType,
+  ApplyOfferRequestActionType,
   LoadRequestActionType,
   LoginRequestActionType,
   LogoutRequestActionType,
@@ -19,7 +20,8 @@ import {
   LOGOUT_REQUEST,
   REGISTER_REQUEST,
   UPDATE_CART_ITEM_REQUEST,
-  LOAD_SINGLE_PRODUCT_REQUEST
+  LOAD_SINGLE_PRODUCT_REQUEST,
+  APPLY_OFFER_REQUEST
 } from 'constants/actionTypes';
 import { RegisterInitValuesType } from 'Pages/Register/registerUtils';
 
@@ -49,6 +51,14 @@ export const UpdateCartItemRequestAction = (
   cartItem,
   processId: cartItem.productId,
 });
+
+
+export const ApplyOfferRequestAction = (
+  offer: string
+): ApplyOfferRequestActionType => ({
+  type: APPLY_OFFER_REQUEST,
+  offer
+})
 
 export const deleteCartItemRequestAction = (
   cartItem: CartType,
