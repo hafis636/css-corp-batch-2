@@ -5,4 +5,5 @@ export type User = {
   gender: GenderEnum;
   id: number;
   name: string;
+  addresses?: []
 };

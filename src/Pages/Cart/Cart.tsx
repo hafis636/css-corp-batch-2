@@ -19,9 +19,13 @@ type Props = {
 }
 
 const Cart = ({ loadCart, loadProducts, products, offers, cart, updateCartItem, applyOffer, deleteCartItem }: Props) => {
+    const offerExist = sessionStorage.getItem('@app/offer');
     useEffect(() => {
         loadCart();
         loadProducts();
+        if (offerExist) {
+            applyOffer(offerExist);
+        }
     }, [loadCart, loadProducts]);
     const subtotal = products.reduce((prev, next) => prev + next.qty * next.price, 0);
     const shippingCharge = 10;

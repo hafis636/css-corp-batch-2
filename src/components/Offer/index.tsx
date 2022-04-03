@@ -22,7 +22,7 @@ const Offer = ({ applyOffer, offerDiscount }: Props) => {
                 <form onSubmit={submitHandler} className="flex">
                     <input
                         className="appearance-none rounded relative block w-2/3 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-b-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                        placeholder={offerDiscount ? offerDiscount.name : "Offer code"}
+                        placeholder={offerDiscount ? offerDiscount.offercode : "Offer code"}
                         required id="offer" ref={offerInput}
                     />
                     <button className="uppercase w-1/3 inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"> Submit</button>

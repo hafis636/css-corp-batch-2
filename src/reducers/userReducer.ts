@@ -10,7 +10,10 @@ export const loginSuccessAction = (user: User): AuthSuccessActionType => ({
   type: LOGIN_SUCCESS,
   user,
 });
-
+export const addressSuccessAction = (user: User): AuthSuccessActionType => ({
+  type: LOGIN_SUCCESS,
+  user,
+});
 export const registerSuccessAction = (user: User): AuthSuccessActionType => ({
   type: REGISTER_SUCCESS,
   user,

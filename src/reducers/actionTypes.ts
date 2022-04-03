@@ -31,7 +31,8 @@ import {
   UPDATE_CART_ITEM_REQUEST,
   UPDATE_CART_ITEM_SUCCESS,
   APPLY_OFFER_REQUEST,
-  APPLY_OFFER_SUCCESS
+  APPLY_OFFER_SUCCESS,
+  ADDRESS_REQUEST
 } from 'types/commonTypes';
 
 import { OfferType, ProductType } from 'types/productsTypes';
@@ -87,6 +88,7 @@ export type ModifyCartItemRequestActionType = {
 export type ApplyOfferRequestActionType = {
   type: APPLY_OFFER_REQUEST;
   offer: string;
+  key?: never;
 };
 
 export type LoginRequestActionType = {
@@ -100,6 +102,13 @@ export type RegisterRequestActionType = {
   type: REGISTER_REQUEST;
   values: RegisterInitValuesType;
   actions: FormikHelpers<RegisterInitValuesType>;
+  processId?: never;
+};
+
+export type AddressRequestActionType = {
+  type: ADDRESS_REQUEST;
+  values: AddressRequestActionType;
+  actions: FormikHelpers<AddressRequestActionType>;
   processId?: never;
 };
 
@@ -117,7 +126,9 @@ export type RequestActionType =
   | LoadRequestActionType
   | AddCartItemRequestActionType
   | ModifyCartItemRequestActionType
-  | LoginRequestActionType;
+  | LoginRequestActionType
+  | AddressRequestActionType
+  | ApplyOfferRequestActionType;
 
 export type LoadErrorActionType = {
   type:

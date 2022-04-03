@@ -112,6 +112,8 @@ function* applyOffer({ offer }: any) {
       }
     ];
     const offerDiscount = offersList.find((x: any) => x?.offercode === offer);
+    const appliedOffer = offerDiscount?.offercode as string;
+    offerDiscount ? sessionStorage.setItem('@app/offer', appliedOffer) : sessionStorage.removeItem('@app/offer');;
     yield put(ApplyOfferSuccessAction(offerDiscount));
   } catch (error) {
 

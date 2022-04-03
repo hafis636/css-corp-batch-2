@@ -19,9 +19,9 @@ const FormikForm = <T extends { serverError?: string }>({
   return (
     <Formik {...props}>
       {({ isValid, dirty, errors, isSubmitting }) => (
-        <Form className="mt-8 space-y-6">
+        <Form className="mt-8 space-y-6 w-1/2">
           {errors.serverError && (
-            <p className="text-center text-red-500 text-lg">
+            <p className="text-center text-red-500 text-sm">
               {errors.serverError}
             </p>
           )}
